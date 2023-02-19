@@ -14,6 +14,9 @@ const app = (0, express_1.default)();
 app.use((0, cors_1.default)());
 app.use(express_1.default.urlencoded({ extended: false }));
 app.use(express_1.default.json());
+app.get('/', (req, res) => {
+    res.send('Welcome to my backend');
+});
 app.use('/auth', Auth_1.default);
 app.use('/api/v1', api_1.default);
 app.get('/download/:id/:file_id/', downloadFile_1.default);
