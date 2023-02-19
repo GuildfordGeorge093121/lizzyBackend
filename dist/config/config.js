@@ -8,8 +8,8 @@ dotenv_1.default.config();
 const env = process.env.NODE_ENV;
 const dev = {
     app: {
-        host: process.env.DEV_HOST,
-        port: Number(process.env.DEV_PORT),
+        host: process.env.HOST,
+        port: Number(process.env.PORT),
         file_endpoint: process.env.DEV_FILE_ENDPOINT,
     },
     db: {
@@ -22,16 +22,16 @@ const dev = {
 };
 const prod = {
     app: {
-        host: process.env.PROD_HOST,
-        port: Number(process.env.PROD_PORT),
+        host: process.env.HOST,
+        port: Number(process.env.PORT),
         file_endpoint: process.env.PROD_FILE_ENDPOINT,
     },
     db: {
-        host: process.env.PROD_HOST,
-        user: process.env.PROD_USER,
-        database: process.env.PROD_DATABASE,
-        password: process.env.PROD_PASSWORD,
-        port: Number(process.env.PROD_PORT),
+        host: process.env.PGHOST,
+        user: process.env.PGUSER,
+        database: process.env.PGDATABASE,
+        password: process.env.PGPASSWORD,
+        port: Number(process.env.PGPORT),
     }
 };
 const config = {
