@@ -25,7 +25,7 @@ const upload = (0, multer_1.default)({
 const api = express_1.default.Router();
 // 
 api.use(VerifyToken_1.default, RefreshToken_1.default);
-api.get('/verify/:id', verifyAccount_1.default);
+// api.get('/verify/:id', verifyAccount)
 api.use('/admin/:id', verifyAccount_1.default);
 api.get('/admin/:id', adminData_1.default);
 api.get('/admin/:id/downloads/:file_id', downloadList_1.default);

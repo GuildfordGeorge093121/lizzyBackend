@@ -29,7 +29,7 @@ const newFileData = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         const fileEntry = yield (0, DB_1.default)('INSERT INTO files(id,title,description,filename,file) VALUES(uuid_generate_v4(), $1,$2,$3,$4)', [title, description, filename, fileURL]);
         if (fileEntry.rowCount == 0)
             return res.status(400).json({ status: 'error', message: 'No content' });
-        res.status(200).json({ status: 'ok' });
+        res.status(201).json({ status: 'ok' });
     }
     catch (error) {
         res.status(500).json({ status: 'error', message: 'Internal Server Error' });
