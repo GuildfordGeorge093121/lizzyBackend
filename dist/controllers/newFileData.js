@@ -26,7 +26,7 @@ const newFileData = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     const fileURL = file.path;
     const filename = title.toLowerCase() + file.originalname.match(/\.([a-zA-Z0-9]+)$/)[0];
     try {
-        const fileEntry = yield (0, DB_1.default)('INSERT INTO files VALUES(uuid_generate_v4(), $1,$2,$3,$4)', [title, description, filename, fileURL]);
+        const fileEntry = yield (0, DB_1.default)('INSERT INTO files(id,title,description,filename,file) VALUES(uuid_generate_v4(), $1,$2,$3,$4)', [title, description, filename, fileURL]);
         if (fileEntry.rowCount == 0)
             return res.status(400).json({ status: 'error', message: 'No content' });
         res.status(200).json({ status: 'ok' });

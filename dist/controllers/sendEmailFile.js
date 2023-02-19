@@ -62,7 +62,7 @@ const sendEmailFile = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         console.log(rejected);
         if (rejected.length != 0)
             return res.status(500).json({ status: 'error', message: 'Something while trying to send email' });
-        const saveEmailSent = yield (0, DB_1.default)('INSERT INTO email_sent(file_id,user_id,email,ts)  VALUES($1,$2,$3, NOW())', [file_id, id, email]);
+        const saveEmailSent = yield (0, DB_1.default)('INSERT INTO email_sent(sent_id, file_id,user_id,email,ts)  VALUES(uuid_generate_v4(),$1,$2,$3, NOW())', [file_id, id, email]);
         res.status(201).json({ status: 'ok', messsage: 'Email sent' });
     }
     catch (error) {

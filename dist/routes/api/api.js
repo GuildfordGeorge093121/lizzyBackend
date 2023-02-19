@@ -9,13 +9,11 @@ const RefreshToken_1 = __importDefault(require("../../middleWares/RefreshToken")
 const VerifyToken_1 = __importDefault(require("../../middleWares/VerifyToken"));
 const multer_1 = __importDefault(require("multer"));
 const adminData_1 = __importDefault(require("../../controllers/adminData"));
-const uploadEmptyField_1 = __importDefault(require("../../middleWares/uploadEmptyField"));
 const downloadList_1 = __importDefault(require("../../controllers/downloadList"));
 const emailList_1 = __importDefault(require("../../controllers/emailList"));
 const verifyAccount_1 = __importDefault(require("../../middleWares/verifyAccount"));
 const userData_1 = __importDefault(require("../../controllers/userData"));
 const sendEmailFile_1 = __importDefault(require("../../controllers/sendEmailFile"));
-const verify_1 = __importDefault(require("../../controllers/verify"));
 const searchFile_1 = __importDefault(require("../../controllers/searchFile"));
 const storage = multer_1.default.memoryStorage();
 const upload = (0, multer_1.default)({
@@ -27,12 +25,12 @@ const upload = (0, multer_1.default)({
 const api = express_1.default.Router();
 // 
 api.use(VerifyToken_1.default, RefreshToken_1.default);
-api.get('/verify/:id', verifyAccount_1.default, verify_1.default);
+api.get('/verify/:id', verifyAccount_1.default);
 api.use('/admin/:id', verifyAccount_1.default);
 api.get('/admin/:id', adminData_1.default);
 api.get('/admin/:id/downloads/:file_id', downloadList_1.default);
 api.get('/admin/:id/emails/:file_id', emailList_1.default);
-api.post('/admin/:id/dataEntry', uploadEmptyField_1.default, upload.single('file'), newFileData_1.default);
+api.post('/admin/:id/dataEntry', upload.single('file'), newFileData_1.default);
 api.use('/users/:id', verifyAccount_1.default);
 api.get('/users/:id', userData_1.default);
 api.get('/users/:id/search', searchFile_1.default);

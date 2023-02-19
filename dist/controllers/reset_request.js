@@ -48,7 +48,7 @@ const reset_request = (req, res) => __awaiter(void 0, void 0, void 0, function* 
                     <a href='${url}'>Click Here</a><span>&nbsp; to reset your password</span>`
         };
         const info = yield mailer_1.default.sendMail(resetObj);
-        const savetoken = yield (0, DB_1.default)('INSERT INTO resets(email, token) VALUES($1, $2)', [email, token]);
+        const savetoken = yield (0, DB_1.default)('INSERT INTO resets(resetid,email, token) VALUES(uuid_generate_v4(),$1, $2)', [email, token]);
         console.log('email sent');
         res.status(201).json({ status: 'ok', message: 'Email Sent' });
     }
