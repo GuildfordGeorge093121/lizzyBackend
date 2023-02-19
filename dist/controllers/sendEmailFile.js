@@ -33,6 +33,8 @@ const sendEmailFile = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         console.log('Found file');
         const { title, description, filename, file } = searchFile.rows[0];
         const userInfo = req.userInfo;
+        const downloadURL = process.env.NODE_ENV == 'dev' ? `http://localhost:5000/download/${id}/${file_id}?email=${email}` :
+            process.env.NODE_ENV == 'prod' && `https://lizzybackend-production.up.railway.app/download/${id}/${file_id}?email=${email}`;
         const messageObj = {
             from: 'Lizzy" <lizzycompany07@gmail.com>',
             to: email,
@@ -45,8 +47,8 @@ const sendEmailFile = (req, res) => __awaiter(void 0, void 0, void 0, function* 
                               <p>${message}</p>`}
                 
                 <a 
-                href='http://localhost:5000/download/${id}/${file_id}?email=${email}' 
-                style='padding: 20px, color: white, background-color: #01d28e'>Download File</a>
+                href=${downloadURL} 
+                style='padding: 20px; color: white; background-color: #01d28e; text-docoration: none; font-size: 16px'>Download File</a>
               </div>
               <p>Find attached, a file for your consideration</p>
         `,
