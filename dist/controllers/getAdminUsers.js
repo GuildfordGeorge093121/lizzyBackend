@@ -13,18 +13,22 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const DB_1 = __importDefault(require("../db/DB"));
-const userData = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { id } = req.params;
+const dotenv_1 = __importDefault(require("dotenv"));
+dotenv_1.default.config();
+const getAdminUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const data = yield (0, DB_1.default)('SELECT * FROM files WHERE user_id=$1', [id]);
-        const token = {
+        const userId = process.env.USER_ID;
+        const users = yield (0, DB_1.default)('SELECT id, firstname, lastname FROM users WHERE role= $1', [userId]);
+        const userInfo = req.userInfo;
+        const security = {
             accessToken: req.accessToken,
             refreshToken: req.query.refreshToken
         };
-        res.status(200).json({ status: 'ok', userInfo: req.userInfo, security: token, data: data.rows });
+        res.status(200).json({ status: 'ok', userInfo, security, data: users.rows });
     }
     catch (error) {
-        res.status(500).json({ error: 'error', message: 'Internal Server Error' });
+        console.log(error);
+        res.status(500).json({ status: 'error', message: 'Internal Server Error' });
     }
 });
-exports.default = userData;
+exports.default = getAdminUsers;

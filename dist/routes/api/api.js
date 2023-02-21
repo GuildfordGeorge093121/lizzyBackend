@@ -15,6 +15,7 @@ const verifyAccount_1 = __importDefault(require("../../middleWares/verifyAccount
 const userData_1 = __importDefault(require("../../controllers/userData"));
 const sendEmailFile_1 = __importDefault(require("../../controllers/sendEmailFile"));
 const searchFile_1 = __importDefault(require("../../controllers/searchFile"));
+const getAdminUsers_1 = __importDefault(require("../../controllers/getAdminUsers"));
 const storage = multer_1.default.memoryStorage();
 const upload = (0, multer_1.default)({
     dest: './uploads',
@@ -31,6 +32,7 @@ api.get('/admin/:id', adminData_1.default);
 api.get('/admin/:id/downloads/:file_id', downloadList_1.default);
 api.get('/admin/:id/emails/:file_id', emailList_1.default);
 api.post('/admin/:id/dataEntry', upload.single('file'), newFileData_1.default);
+api.get('/admin/:id/users', getAdminUsers_1.default);
 api.use('/users/:id', verifyAccount_1.default);
 api.get('/users/:id', userData_1.default);
 api.get('/users/:id/search', searchFile_1.default);

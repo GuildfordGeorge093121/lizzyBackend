@@ -18,15 +18,32 @@ dotenv_1.default.config();
 const newFileData = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const file = req.file;
     const { email, role } = req.payload;
-    const { description, title } = req.body;
+    const { description, title, targetId } = req.body;
     if (!file)
         return res.status(400).json({ status: 'error', message: 'Error: Select a file...' });
+    if (!description || !title || !targetId) {
+        let str = [];
+        if (!email)
+            str.push('email');
+        if (!description)
+            str.push('description');
+        if (!title)
+            str.push('firstname');
+        if (!targetId)
+            str.push('lastname');
+        let ArrStr = "";
+        ArrStr = str.join(", ");
+        if (str.length > 1) {
+            ArrStr = ArrStr.replace(/(, )(\w+)$/, " and $2");
+        }
+        return res.status(400).json({ status: 'error', message: `${ArrStr} can not be empty` });
+    }
     if (role != process.env.ADMIN_ID)
         return res.status(403).json({ status: 'error', message: 'Unauthorized' });
     const fileURL = file.path;
     const filename = title.toLowerCase() + file.originalname.match(/\.([a-zA-Z0-9]+)$/)[0];
     try {
-        const fileEntry = yield (0, DB_1.default)('INSERT INTO files(id,title,description,filename,file) VALUES(uuid_generate_v4(), $1,$2,$3,$4)', [title, description, filename, fileURL]);
+        const fileEntry = yield (0, DB_1.default)('INSERT INTO files(id,title,description,filename,file,user_id) VALUES(uuid_generate_v4(), $1,$2,$3,$4,$5)', [title, description, filename, fileURL, targetId]);
         if (fileEntry.rowCount == 0)
             return res.status(400).json({ status: 'error', message: 'No content' });
         res.status(201).json({ status: 'ok' });

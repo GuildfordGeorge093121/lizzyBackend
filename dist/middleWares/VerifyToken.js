@@ -29,6 +29,7 @@ const verifyToken = (req, res, next) => __awaiter(void 0, void 0, void 0, functi
     }
     catch (error) {
         console.log(error);
+        req.payload = undefined;
         next();
     }
 });
