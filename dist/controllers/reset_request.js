@@ -38,8 +38,8 @@ const reset_request = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         console.log('token creation');
         const token = yield jsonwebtoken_1.default.sign(payload, process.env.RESET_TOKEN_SECRET, { expiresIn: '15m' });
         console.log('token created');
-        const url = process.env.NODE_ENV == 'dev' ? `http://${config_1.default.app.host}:3000/auth/reset/${token}` :
-            process.env.NODE_ENV == 'prod' && `https://georgeguildfordlizzyplatform.netlify.app/auth/reset/${token}`;
+        const url = process.env.NODE_ENV == 'prod' ? `https://georgeguildfordlizzyplatform.netlify.app/auth/reset/${token}` :
+            `http://${config_1.default.app.host}:3000/auth/reset/${token}`;
         const resetObj = {
             from: 'Lizzy" <lizzycompany07@gmail.com>',
             to: email,
