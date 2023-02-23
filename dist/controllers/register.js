@@ -49,7 +49,7 @@ const Register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             return res.status(403).json({ status: 'error', message: 'Account already exist...' });
         const hashPassword = yield bcrypt_1.default.hash(password, 10);
         const token = yield (0, GenerateToken_1.default)({ email, role });
-        const register = yield (0, DB_1.default)('INSERT INTO users(id,firstname,lastname,email,password,role,token) VALUES(uuid_generate_v4(),$1,$2,$3,$4,$5,$6) RETURNING id, role', [firstname, lastname, email, hashPassword, role, token.refreshToken]);
+        const register = yield (0, DB_1.default)('INSERT INTO users(firstname,lastname,email,password,role,token) VALUES($1,$2,$3,$4,$5,$6) RETURNING id, role', [firstname, lastname, email, hashPassword, role, token.refreshToken]);
         console.log('Account Created');
         if (register.rows.length == 0)
             return res.status(500).json({ status: 'error', message: 'Something went wrong while trying to create your account' });

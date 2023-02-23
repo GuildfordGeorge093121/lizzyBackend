@@ -31,7 +31,7 @@ const downloadFile = (req, res) => __awaiter(void 0, void 0, void 0, function* (
         if (auth.rows.length == 0)
             return res.status(400).json({ status: 'error', message: 'Unauthorize' });
         res.download(auth.rows[0].link, auth.rows[0].filename);
-        const saveDownload = yield (0, DB_1.default)('INSERT INTO downloads(id,file_id,user_id,email,ts) VALUES(uuid_generate_v4(),$1,$2,$3, NOW())', [file_id, id, email]);
+        const saveDownload = yield (0, DB_1.default)('INSERT INTO downloads(file_id,user_id,email,ts) VALUES($1,$2,$3, NOW())', [file_id, id, email]);
     }
     catch (error) {
         console.log(error);
