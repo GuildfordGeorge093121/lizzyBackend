@@ -18,7 +18,7 @@ dotenv_1.default.config();
 const getAdminUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const userId = process.env.USER_ID;
-        const users = yield (0, DB_1.default)('SELECT id, firstname, lastname FROM users WHERE role= $1', [userId]);
+        const users = yield (0, DB_1.default)('SELECT id, firstname, lastname FROM users WHERE role= $1 ORDER BY firstname, lastname, id', [userId]);
         const userInfo = req.userInfo;
         const security = {
             accessToken: req.accessToken,
